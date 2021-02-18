@@ -24,6 +24,13 @@ public class user {
         this.friends = friends;
     }
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public user(){
     }

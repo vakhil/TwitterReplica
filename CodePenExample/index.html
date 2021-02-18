@@ -1,0 +1,1301 @@
+
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>CodePen Demo</title>
+
+  <meta name="robots" content="noindex">
+
+  <link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+  <link rel="mask-icon" type="" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+  <link rel="canonical" href="https://codepen.io/elad2412/pen/abddpRm">
+
+  
+  
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <style class="INLINE_PEN_STYLESHEET_ID">
+    @charset "UTF-8";
+/****** More of My Resets *******/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:focus {
+  outline: none;
+}
+
+button {
+  background-color: transparent;
+  color: inherit;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Responsive Variables */
+@media (max-width:499px) {
+  .is-hide-break1 {
+    display: none !important;
+  }
+}
+
+@media (min-width:500px) {
+  .is-only-break1 {
+    display: none !important;
+  }
+}
+
+/* Multi direcrtion Languages Support Variables*/
+/* typography */
+html {
+  font-size: 1px;
+  /*for using REM units*/
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-size: 16rem;
+  line-height: 1.3;
+}
+
+/* utilities classes */
+.u-hide {
+  display: none !important;
+}
+
+.u-block {
+  display: block !important;
+}
+
+.u-flex {
+  display: flex !important;
+}
+
+.u-space-between {
+  justify-content: space-between !important;
+}
+
+.u-common-padding {
+  padding: 10px 15px !important;
+}
+
+.u-margin-auto {
+  margin: auto !important;
+}
+
+.u-margin-start-auto {
+  margin-left: auto !important;
+}
+
+.u-margin-bottom {
+  margin-bottom: 10px !important;
+}
+
+/* colors */
+:root {
+  --white:#fff;
+  --black:#000;
+  --grayA:#657786;
+  --gray-light:#f8f5fa;
+  --border-color:#e6ecf0;
+  /* common blue */
+  --base-color:203;
+  /* base hue of blue*/
+  --main-color:hsla(var(--base-color), 89%, 53%, 1);
+  --hover-color:hsla(var(--base-color), 89%, 47%, 1);
+  --bg-hover-color:hsla(var(--base-color), 89%, 53%, 0.1);
+}
+
+/*mixin*/
+/*scrolls*/
+::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+  background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* animation */
+@keyframes clickableAnimation {
+  0% {
+    transform: scale(1);
+  }
+  95% {
+    transform: scale(1);
+  }
+  96% {
+    transform: scale(1.25);
+  }
+  97% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.u-animation-click {
+  animation: clickableAnimation 20s ease-in-out -17s infinite;
+}
+
+/* icons */
+.icon {
+  filter: grayscale(1) opacity(0.8);
+}
+
+.icon-explore {
+  font-size: 28px;
+  color: var(--main-color);
+}
+
+.icon-more {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  border: solid 1px var(--black);
+  border-radius: 50%;
+}
+.icon-more::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  margin: auto;
+  background-color: var(--black);
+  border-radius: inherit;
+  box-shadow: 6px 0px var(--black), -6px 0px var(--black);
+}
+
+.icon-gif {
+  display: inline-flex;
+  vertical-align: bottom;
+  width: 20px;
+  height: 20px;
+  border: solid 1px var(--black);
+  text-transform: uppercase;
+  font-size: 8px;
+  font-weight: 800;
+}
+.icon-gif::before {
+  content: "gif";
+  margin: auto;
+}
+
+.icon-poll {
+  display: inline-flex;
+  transform: rotateZ(90deg);
+}
+
+.icon-arrow-down {
+  position: relative;
+  left: -2px;
+}
+.icon-arrow-down::before, .icon-arrow-down::after {
+  content: "";
+  position: absolute;
+  display: block;
+  height: 2px;
+  width: 8px;
+  background: var(--grayA);
+}
+.icon-arrow-down::before {
+  transform: translateX(-4px) rotateZ(45deg);
+}
+.icon-arrow-down::after {
+  transform: rotateZ(-45deg);
+}
+
+.icon-tweet {
+  filter: grayscale(1) opacity(0.8) brightness(1.5);
+}
+
+/* Grid Layout */
+.main-grid {
+  display: grid;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0 auto;
+}
+@media (max-width:499px), (min-width:500px) and (max-width:1004px) {
+  .main-grid .main-side {
+    display: none;
+  }
+}
+@media (min-width:500px) and (max-width:1004px) {
+  .main-grid {
+    grid-template-columns: auto minmax(auto, 600px);
+    max-width: 705px;
+  }
+}
+@media (min-width:1005px) {
+  .main-grid {
+    grid-template-columns: auto 600px minmax(290px, 380px);
+    padding: 0 10px;
+    box-sizing: content-box;
+  }
+}
+@media (min-width:1095px) {
+  .main-grid {
+    max-width: 1235px;
+  }
+}
+
+/*elemenets*/
+.profile-image {
+  border-radius: 50%;
+}
+
+.common-link {
+  color: var(--main-color);
+}
+.common-link:hover, .common-link:focus {
+  text-decoration: underline;
+}
+
+.common-button {
+  --button-height:40px;
+  --button-padding:15px;
+  background-color: var(--main-color);
+  height: var(--button-height);
+  padding: 0 var(--button-padding);
+  border-radius: calc( var(--button-height) / 2 )/50%;
+  color: var(--white);
+  font-size: 15rem;
+  font-weight: bold;
+}
+.common-button.is-full-width {
+  width: 100%;
+}
+.common-button.is-height-big {
+  --button-height:50px;
+}
+.common-button.is-invert {
+  background-color: transparent;
+  border: solid 1px var(--main-color);
+  color: var(--main-color);
+}
+.common-button.is-invert:hover, .common-button.is-invert:focus {
+  background-color: var(--bg-hover-color);
+}
+.common-button:hover, .common-button:focus {
+  background-color: var(--hover-color);
+}
+
+.icon-button {
+  --icon-button-size:40px;
+  height: var(--icon-button-size);
+  width: var(--icon-button-size);
+  border-radius: 50%;
+}
+.icon-button:hover, .icon-button:focus {
+  background-color: var(--bg-hover-color);
+}
+
+@media (max-width:499px) {
+  .tweet-button {
+    position: fixed;
+    left: auto;
+    right: 15px;
+    bottom: 75px;
+  }
+  .tweet-button .common-button {
+    width: auto;
+    box-shadow: rgba(101, 119, 134, 0.2) 0px 0px 8px, rgba(101, 119, 134, 0.25) 0px 1px 3px 1px;
+  }
+  .tweet-button .common-button .text {
+    display: none;
+  }
+}
+@media (min-width:500px) and (max-width:1004px), (min-width:1005px) and (max-width:1094px), (min-width:1095px) and (max-width:1281px) {
+  .tweet-button .common-button {
+    padding: 0;
+  }
+  .tweet-button .common-button .text {
+    display: none;
+  }
+}
+@media (min-width:1282px) {
+  .tweet-button .common-button .icon {
+    display: none;
+  }
+}
+
+.section-title {
+  font-size: 19rem;
+  font-weight: 800;
+}
+
+.common-title {
+  font-size: 15rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+.trend-category {
+  font-size: 13rem;
+  color: var(--grayA);
+  margin-bottom: 5px;
+}
+
+.usercode {
+  color: var(--grayA);
+  font-size: 15rem;
+}
+
+.logo {
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 2px 0;
+  font-size: 24px;
+  line-height: 50px;
+  text-decoration: none;
+  text-align: center;
+}
+.logo .icon {
+  display: block;
+  filter: hue-rotate(175deg) opacity(0.8);
+  transform: scale(-1, 1);
+}
+.logo:hover, .logo:focus {
+  background-color: var(--bg-hover-color);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  padding: 10px;
+  border-radius: 20px/50%;
+  font-weight: bold;
+  font-size: 19rem;
+}
+.menu-item .icon {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  filter: grayscale(1) opacity(0.8);
+  transition: 0.2s;
+}
+.menu-item .icon-explore {
+  filter: grayscale(1) opacity(1) brightness(0.5);
+}
+.menu-item .text {
+  color: var(--black);
+  padding-right: 15px;
+  margin-left: 20px;
+}
+.menu-item:hover, .menu-item:focus {
+  background-color: var(--bg-hover-color);
+}
+.menu-item:hover .text, .menu-item:focus .text, .menu-item.is-selected .text {
+  color: var(--main-color);
+}
+.menu-item:hover .icon, .menu-item:focus .icon, .menu-item.is-selected .icon {
+  filter: grayscale(0.3) opacity(1);
+}
+@media (max-width:499px), (min-width:500px) and (max-width:1004px), (min-width:1005px) and (max-width:1094px), (min-width:1095px) and (max-width:1281px) {
+  .menu-item .text {
+    display: none;
+  }
+  .menu-item .common-button .text {
+    display: none;
+  }
+}
+
+.search-box {
+  --search-height:42px;
+  position: relative;
+  display: flex;
+  transition: 0.2s;
+  border: solid 1px transparent;
+  border-radius: calc(var(--search-height) / 2)/50%;
+  background-color: var(--border-color);
+}
+.search-box:focus-within {
+  background-color: transparent;
+  border-color: var(--main-color);
+}
+.search-box:focus-within .icon {
+  filter: grayscale(0) opacity(1);
+}
+.search-box .icon {
+  margin: auto 10px;
+  transform: scale(-1, 1);
+}
+.search-box input {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  /* reset input */
+  padding: 5px 10px;
+  width: 100%;
+  height: var(--search-height);
+}
+.search-box input::-webkit-input-placeholder {
+  font-size: 15rem;
+  overflow: visible;
+  line-height: 1;
+}
+.search-box input::-moz-placeholder {
+  font-size: 15rem;
+  overflow: visible;
+  line-height: 1;
+}
+.search-box input:placeholder {
+  font-size: 15rem;
+  overflow: visible;
+  line-height: 1;
+}
+
+.common-more {
+  display: block;
+  padding: 10px 15px;
+  color: var(--main-color);
+  border-radius: 0 0 10px 10px;
+}
+
+/*components */
+.main-nav {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  /*-webkit-overflow-scrolling:touch;*/
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow: auto;
+}
+.main-nav-item {
+  padding: 7px 0;
+}
+@media (max-width:499px) {
+  .main-nav {
+    position: fixed;
+    z-index: 4;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: auto;
+    background-color: var(--white);
+    border-top: solid 1px var(--border-color);
+  }
+  .main-nav .logo {
+    display: none;
+  }
+  .main-nav-list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+  }
+}
+@media (min-width:500px) and (max-width:1004px), (min-width:1005px) and (max-width:1094px), (min-width:1095px) and (max-width:1281px) {
+  .main-nav {
+    width: 68px;
+    padding: 0 10px;
+  }
+}
+@media (min-width:1282px) {
+  .main-nav {
+    min-width: 88px;
+    width: 255px;
+    padding-right: 44px;
+  }
+}
+
+.main-content {
+  border: solid 0 var(--border-color);
+  border-width: 0 1px;
+}
+
+.main-side {
+  margin-left: 30px;
+}
+.main-side-searchbox {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: var(--white);
+}
+
+.main-header {
+  position: -webkit-sticky;
+  /* Safari */
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  background-color: var(--white);
+  display: flex;
+  height: 50px;
+  padding: 0 15px;
+  border-bottom: solid 1px var(--border-color);
+}
+.main-header-content {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+}
+.main-header .icon-button {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+.main-header .icon-back {
+  margin-right: 10px;
+  font-size: 22px;
+}
+
+.common-nav {
+  border-bottom: solid 1px var(--border-color);
+}
+.common-nav-list {
+  display: flex;
+  overflow: auto;
+  max-width: 100vw;
+}
+.common-nav-item {
+  flex: 1 auto;
+}
+.common-nav-item a {
+  display: block;
+  padding: 15px;
+  text-align: center;
+  font-size: 15rem;
+  font-weight: 700;
+  color: var(--grayA);
+  white-space: nowrap;
+}
+.common-nav-item .is-selected {
+  border-bottom: solid 2px CurrentColor;
+  color: var(--main-color);
+}
+
+.profile-box .profile-image {
+  --image-size:142px;
+  display: inline-block;
+  width: var(--image-size);
+  background-color: var(--white);
+  border: solid 4px var(--white);
+  margin-top: calc( var(--image-size) / 2 * -1);
+}
+.profile-box.is-list-counters .common-title {
+  padding-right: 5px;
+}
+.profile-box.is-list-counters li + li {
+  margin-left: 15px;
+}
+.profile-box-info {
+  display: flex;
+}
+.profile-box-info li:not(:first-child) {
+  margin-left: 10px;
+}
+.profile-box-info .icon + .text {
+  padding-left: 5px;
+}
+
+.message-box {
+  display: grid;
+  grid-template-columns: 50px auto;
+  grid-gap: 10px;
+  grid-template-areas: "image content" "image nav";
+  padding: 10px 15px;
+  border-bottom: solid 10px var(--border-color);
+}
+.message-box-content {
+  padding: 10px 0;
+  font-size: 19rem;
+}
+.message-box-content::before {
+  content: "What's happening?";
+  color: #9197a3;
+}
+.message-box-content:not(:empty)::before {
+  content: "";
+}
+.message-box-content:focus {
+  outline: none;
+}
+.message-box-content:focus::before {
+  color: #bdc1c9;
+}
+.message-box-nav {
+  grid-area: nav;
+}
+.message-box-nav .icon-button {
+  font-size: 18px;
+}
+
+.feed-item {
+  border-bottom: solid 1px var(--border-color);
+}
+
+.tweet-item {
+  display: grid;
+  grid-template-columns: 50px auto;
+  grid-column-gap: 10px;
+  grid-template-areas: "image user" "image content" "image options";
+  padding: 10px 15px;
+}
+.tweet-item .profile-image {
+  grid-area: image;
+}
+.tweet-item-info {
+  grid-area: user;
+}
+.tweet-item .common-content {
+  grid-area: content;
+}
+.tweet-item .message-options {
+  grid-area: options;
+}
+.tweet-item-info-user:hover .common-title, .tweet-item-info-user:focus .common-title {
+  text-decoration: underline;
+}
+.tweet-item time {
+  color: var(--grayA);
+}
+.tweet-item time::before {
+  content: "·";
+  margin: 0 5px;
+}
+.tweet-item:hover {
+  background: var(--gray-light);
+}
+
+.message-options .icon {
+  opacity: 0.8;
+  font-size: 18rem;
+}
+.message-options .text {
+  color: var(--grayA);
+}
+
+.common-content a:not(.embed-content) {
+  color: var(--main-color);
+}
+.common-content a:not(.embed-content):hover, .common-content a:not(.embed-content):focus {
+  text-decoration: underline;
+}
+
+.embed-content {
+  --border-color:#ccd6dd;
+  display: block;
+  border: solid 1px var(--border-color);
+  border-radius: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+.embed-content:focus {
+  border-color: var(--main-color);
+}
+.embed-content-image {
+  border-radius: 10px 10px 0 0;
+  border-bottom: solid 1px;
+  border-color: inherit;
+}
+.embed-content-title {
+  color: var(--black);
+  margin-bottom: 5px;
+}
+.embed-content-paragraph {
+  color: var(--grayA);
+}
+.embed-content-info {
+  color: var(--grayA);
+  margin-top: 5px;
+}
+.embed-content-info .icon {
+  margin-right: 5px;
+}
+.embed-content-text {
+  padding: 10px;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.common-box {
+  background-color: #f5f8fa;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+.common-box a:hover, .common-box a:focus {
+  background-color: #edf1f4;
+}
+.common-box-header {
+  padding: 10px 15px;
+  border-bottom: solid 1px var(--border-color);
+}
+.common-box-header .icon-button {
+  --icon-button-size:27px;
+}
+
+.content-image {
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.common-list-item {
+  position: relative;
+  border-bottom: solid 1px var(--border-color);
+}
+.common-list-item .common-title {
+  margin-bottom: 5px;
+}
+.common-list-item p {
+  color: var(--grayA);
+  font-size: 15rem;
+}
+.common-list-item .icon-button {
+  --icon-button-size:27px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+.user-item {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  grid-column-gap: 10px;
+  flex: 1;
+  grid-template-areas: "image title button" "image usercode button";
+}
+.user-item .profile-image {
+  grid-area: image;
+  font-size: 8rem;
+  text-align: center;
+  background-color: var(--grayA);
+  height: 50px;
+  overflow: hidden;
+}
+.user-item .common-title {
+  grid-area: title;
+  margin-bottom: 0;
+  align-self: end;
+}
+.user-item .usercode {
+  grid-area: usercode;
+  align-self: start;
+}
+.user-item .common-button {
+  grid-area: button;
+  display: flex;
+  margin: auto;
+  margin-right: 10px;
+  --button-height:30px;
+}
+.user-item .common-button .text {
+  margin: auto;
+}
+.user-item:hover, .user-item:focus {
+  background-color: transparent;
+}
+  </style>
+
+  
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-7f4d47902dc785f30dedcac9c996b9f31d4dfcc33567cc48f0431bc918c2bf05.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-bb9a2ba1f03f6147732cb3cd52ac86c6b24524aa87a05ed0b726f11e46d7e277.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+</head>
+
+<body>
+  <div class="main-grid">
+  <nav class="main-nav">
+    <a class="logo js-home" href="javascript: void(0)"><span class="icon">🦉</span></a>
+    <ul class="main-nav-list">
+      <li class="main-nav-item"><a class="menu-item is-selected js-home" href="javascript: void(0)"><span class="icon">🏠</span><span class="text">Home</span></a></li>
+      <li class="main-nav-item is-only-break1"><button class="menu-item"><span class="icon">🔎</span><span class="text">Search</span></button></li>
+      <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon icon-explore">#</span><span class="text">Explore</span></a></li>
+      <li class="main-nav-item"><a class="menu-item"><span class="icon">🔔</span><span class="text">Notifications</span></a></li>
+      <li class="main-nav-item"><a class="menu-item"><span class="icon">✉️</span><span class="text">Messages</span></a></li>
+      <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon">🔖</span><span class="text">Bookmarks</span></a></li>
+      <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon">📄</span><span class="text">Lists</span></a></li>
+      <li class="main-nav-item is-hide-break1">
+        <a class="menu-item u-animation-click js-profile" href="javascript: void(0)">
+          <span class="icon"><img class="profile-image" src="https://bit.ly/3b6qNEw" alt="Elad Shechter"></span>
+          <span class="text">Profile</span>
+        </a>
+      </li>
+      <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon icon-more"></span><span class="text">More</span></a></li>
+      <li class="main-nav-item tweet-button"><button class="common-button is-full-width is-height-big js-tweet"><span class="icon icon-tweet">✒️</span><span class="text">Tweet</span></button></li>
+    </ul>
+  </nav>
+  <main class="main-content">
+    <header class="main-header">
+      <button class="icon-button icon-back js-home u-hide"><span class="icon">←</span></button>
+      <div class="main-header-content">
+        <h1 class="section-title js-title">Home</h1>
+      </div>
+      <button class="icon-button u-margin-start-auto" aria-label="Top Tweets on"><span class="icon">✨</span></button>
+    </header>
+    <section class="profile-box u-hide">
+      <img src="https://pbs.twimg.com/profile_banners/221782882/1585581667/1500x500" alt="">
+      <div class="profile-box-content u-common-padding">
+        <img class="profile-image" src="https://pbs.twimg.com/profile_images/595840995675217920/8uRl8-5A_200x200.jpg" alt="Elad Shechter">
+        <h2 class="section-title">Elad Shechter</h2>
+        <div class="usercode u-margin-bottom">@eladsc</div>
+        <p class="u-margin-bottom">CSS/HTML Expert, Speaker, Writer</p>
+        <ul class="profile-box-info u-margin-bottom">
+          <li><a class="common-link" href="https://eladsc.com/" target="_blank"><span class="icon">🔗</span><span class="text">eladsc.com</span></a></li>
+          <li><span class="icon">📅</span><span class="text">Joined December 2010</span></li>
+        </ul>
+        <ul class="profile-box-info is-list-counters">
+          <li><span class="common-title">218</span> <span class="text">Following</span></li>
+          <li><span class="common-title">1,481</span> <span class="text">Followers</span></li>
+        </ul>
+      </div>
+      <nav class="common-nav">
+        <ul class="common-nav-list">
+          <li class="common-nav-item"><a class="is-selected">Tweets</a></li>
+          <li class="common-nav-item"><a>Tweets & replies</a></li>
+          <li class="common-nav-item"><a>Media</a></li>
+          <li class="common-nav-item"><a>Likes</a></li>
+        </ul>
+      </nav>
+    </section>
+    <section class="message-box">
+      <div class="profile-image-wrap">
+        <img class="profile-image" src="https://bit.ly/3b6qNEw" alt="Elad Shechter">
+      </div>
+      <div class="message-box-content" contenteditable="true" placeholder="What's happening?"></div>
+      <nav class="message-box-nav u-flex">
+        <ul class="u-flex">
+          <li><button class="icon-button"><span class="icon">🌇</span></button></li>
+          <li><button class="icon-button"><span class="icon icon-gif"></span></button></li>
+          <li><button class="icon-button"><span class="icon icon-poll">📊</span></button></li>
+          <li><button class="icon-button"><span class="icon">🙂</span></button></li>
+        </ul>
+        <button class="common-button u-margin-start-auto"><span class="text">Tweet</span></button>
+      </nav>
+    </section>
+    <section class="feed">
+      <ul class="feed-list">
+        <li class="feed-item">
+          <article class="tweet-item">
+            <img class="profile-image" src="https://s.cdpn.io/profiles/user/65740/80.jpg?1576332014" alt="codetalks.tv">
+            <header class="tweet-item-info u-flex">
+              <a class="tweet-item-info-user" href="https://twitter.com/eladsc" target="_blank">
+                <span class="common-title">Elad Shechter</span>
+                <span class="usercode">@eladsc</span>
+              </a>
+              <time datetime="">Jun 10</time>
+              <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+            </header>
+            <div class="common-content">
+              <p>
+                Do you want to know how I made CSS reverse engineering of the Twitter website?! 😃 I just wrote a full article on it.
+
+              </p>
+                            <a class="embed-content" href="https://medium.com/@elad/reverse-engineering-twitters-css-289c91040008" target="_blank">
+                <img class="embed-content-image" src="https://miro.medium.com/max/1104/1*bWhVp9YmZbYyGshS2hpNPw.jpeg" alt="">
+                <div class="embed-content-text">
+                  <h2 class="embed-content-title">Reverse Engineering Twitter’s CSS</h2>
+                  <p class="embed-content-paragraph">As someone who loves CSS and appreciates its importance in this day and age, it is very unclear to me how the web industry’s most…</p>
+                  <footer class="embed-content-info"><span class="icon">🔗</span><span class="text">medium.com</span></footer>
+                </div>
+              </a>
+            </div>
+            <ul class="message-options u-flex u-space-between">
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">💬</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">🔃</span></button>
+                  <span class="text">0</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">❤</span></button>
+                  <span class="text">2</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">📤</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+            </ul>
+          </article>
+        </li>
+        <li class="feed-item">
+          <article class="tweet-item">
+            <img class="profile-image" src="https://pbs.twimg.com/profile_images/1105621862556545024/k5HJkj-p_reasonably_small.png" alt="codetalks.tv">
+            <header class="tweet-item-info u-flex">
+              <a class="tweet-item-info-user" href="https://twitter.com/codetalkstv" target="_blank">
+                <span class="common-title">codetalks.tv</span>
+                <span class="usercode">@codetalkstv</span>
+              </a>
+              <time datetime="">Jun 4</time>
+              <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+            </header>
+            <div class="common-content">
+              <p>The New <a href="https://twitter.com/hashtag/CSS" target="_blank">#CSS</a> Logical Properties (English) - by Elad Shechter</p>
+              <a class="embed-content" href="https://codetalks.tv/talk/the-new-css-logical-properties-english-by-elad-shechter-emdg4aj8o6u" target="_blank">
+                <img class="embed-content-image" src="https://pbs.twimg.com/card_img/1268078644146118656/pk5ViuZO?format=png&name=small" alt="">
+                <div class="embed-content-text">
+                  <h2 class="embed-content-title">Understanding the “Initial”, “Inherit” and “Unset” CSS Keywords</h2>
+                  <p class="embed-content-paragraph">CSS has default keywords for various values. In this article I’m going to talk about three of them: initial, inherit, and the relatively…</p>
+                  <footer class="embed-content-info"><span class="icon">🔗</span><span class="text">medium.com</span></footer>
+                </div>
+              </a>
+            </div>
+            <ul class="message-options u-flex u-space-between">
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">💬</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">🔃</span></button>
+                  <span class="text">1</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">❤</span></button>
+                  <span class="text">2</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">📤</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+            </ul>
+          </article>
+        </li>
+        <li class="feed-item">
+          <article class="tweet-item">
+            <img class="profile-image" src="https://s.cdpn.io/profiles/user/65740/80.jpg?1576332014" alt="codetalks.tv">
+            <header class="tweet-item-info u-flex">
+              <a class="tweet-item-info-user" href="https://twitter.com/eladsc" target="_blank">
+                <span class="common-title">Elad Shechter</span>
+                <span class="usercode">@eladsc</span>
+              </a>
+              <time datetime="">Apr 5</time>
+              <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+            </header>
+            <div class="common-content">
+              <p>
+                The Coronavirus Invaders!<br>
+                I just created Pure CSS Game! (No JS).<br>
+                Try, how many Coronavirus are you able to eliminate?😃<br><br>
+
+                Full page game:<br>
+                <a href="https://codepen.io/elad2412/full/wvabjXy" target="_blank">https://codepen.io/elad2412/full/wvabjXy</a><br><br>
+
+                Editor view:<br>
+                <a href="https://codepen.io/elad2412/pen/wvabjXy" target="_blank">https://codepen.io/elad2412/pen/wvabjXy</a><br>
+              </p>
+              <img class="content-image" src="https://i0.wp.com/eladsc.com/wp-content/uploads/2020/04/corona1-1.gif?fit=660%2C371&ssl=1" alt="">
+            </div>
+            <ul class="message-options u-flex u-space-between">
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">💬</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">🔃</span></button>
+                  <span class="text">13</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">❤</span></button>
+                  <span class="text">36</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">📤</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+            </ul>
+          </article>
+        </li>
+        <li class="feed-item">
+          <article class="tweet-item">
+            <img class="profile-image" src="https://s.cdpn.io/profiles/user/65740/80.jpg?1576332014" alt="Elad Shechter">
+            <header class="tweet-item-info u-flex">
+              <a class="tweet-item-info-user" href="https://twitter.com/eladsc" target="_blank">
+                <span class="common-title">Elad Shechter</span>
+                <span class="usercode">@eladsc</span>
+              </a>
+              <time datetime="">Mar 1</time>
+              <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+            </header>
+            <div class="common-content">
+              <p>
+                "Why the World Needs CSS Developers"<br><br>
+
+In the last 10 years, the web standards have been grown rapidly. But the FED job titles stayed the same.<br>
+In my new article, I will explain, from my perspective, why it's time to change and adapt new job titles!<br>
+              </p>
+              <a class="embed-content" href="https://medium.com/@elad/why-the-world-needs-css-developers-318025a6f5c1" target="_blank">
+                <img class="embed-content-image" src="https://miro.medium.com/max/552/1*65c_DA3NOmVk-NvkKLnSDA.png" alt="">
+                <div class="embed-content-text">
+                  <h2 class="embed-content-title">Why the World Needs CSS Developers</h2>
+                  <p class="embed-content-paragraph">In the last ten years, give or take a few, CSS has grown extensively with the addition of more and more features, thus gradually becoming…</p>
+                  <footer class="embed-content-info"><span class="icon">🔗</span><span class="text">medium.com</span></footer>
+                </div>
+              </a>
+            </div>
+            <ul class="message-options u-flex u-space-between">
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">💬</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">🔃</span></button>
+                  <span class="text">1</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">❤</span></button>
+                  <span class="text">3</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">📤</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+            </ul>
+          </article>
+        </li>
+        <li class="feed-item">
+          <article class="tweet-item">
+            <img class="profile-image" src="https://bit.ly/2SGZ46r" alt="CSS Weekly">
+            <header class="tweet-item-info u-flex">
+              <a class="tweet-item-info-user" href="https://twitter.com/CSSWeekly" target="_blank">
+                <span class="common-title">CSS Weekly</span>
+                <span class="usercode">@CSSWeekly</span>
+              </a>
+              <time datetime="">Jan 31</time>
+              <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+            </header>
+            <div class="common-content">
+              <p>Elad Shechter (<a href="https://twitter.com/eladsc" target="_blank">@eladsc</a>) explains how initial, inherit and unset keywords work.</p>
+              <a class="embed-content" href="https://buff.ly/2uizb2S" target="_blank">
+                <img class="embed-content-image" src="https://miro.medium.com/max/880/1*dn3FzkpQs3gaRAApsTcI6A.png" alt="">
+                <div class="embed-content-text">
+                  <h2 class="embed-content-title">Understanding the “Initial”, “Inherit” and “Unset” CSS Keywords</h2>
+                  <p class="embed-content-paragraph">CSS has default keywords for various values. In this article I’m going to talk about three of them: initial, inherit, and the relatively…</p>
+                  <footer class="embed-content-info"><span class="icon">🔗</span><span class="text">medium.com</span></footer>
+                </div>
+              </a>
+            </div>
+            <ul class="message-options u-flex u-space-between">
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">💬</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">🔃</span></button>
+                  <span class="text">1</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">❤</span></button>
+                  <span class="text">3</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">📤</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+            </ul>
+          </article>
+        </li>
+        <li class="feed-item">
+          <article class="tweet-item">
+            <img class="profile-image" src="https://pbs.twimg.com/profile_images/3304895288/5c6b1f60dd5f179f7b2da2cea0ad787a_bigger.png" alt="CSS Weekly">
+            <header class="tweet-item-info u-flex">
+              <a class="tweet-item-info-user" href="https://twitter.com/SidebarIO" target="_blank">
+                <span class="common-title">Sidebar</span>
+                <span class="usercode">@SidebarIO</span>
+              </a>
+              <time datetime="">Jan 31</time>
+              <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+            </header>
+            <div class="common-content">
+              <p>Why CSS HSL Colors are Better!</p>
+              <a class="embed-content" href="https://t.co/j4wJpK6OYo" target="_blank">
+                <img class="embed-content-image" src="https://miro.medium.com/max/792/1*mMdxAEl-r0qa44MgzsAX6w.png" alt="">
+                <div class="embed-content-text">
+                  <h2 class="embed-content-title">Why CSS HSL Colors are Better!</h2>
+                  <p class="embed-content-paragraph">With the Power of CSS Variables</p>
+                  <footer class="embed-content-info"><span class="icon">🔗</span><span class="text">medium.com</span></footer>
+                </div>
+              </a>
+            </div>
+            <ul class="message-options u-flex u-space-between">
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">💬</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">🔃</span></button>
+                  <span class="text">1</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">❤</span></button>
+                  <span class="text">16</span>
+                </label>
+              </li>
+              <li class="message-options-item">
+                <label>
+                  <button class="icon-button"><span class="icon">📤</span></button>
+                  <span class="text"></span>
+                </label>
+              </li>
+            </ul>
+          </article>
+        </li>
+      </ul>
+    </section>
+  </main>
+  <aside class="main-side">
+    <div class="main-side-searchbox">
+       <label class="search-box">
+      <span class="icon">🔎</span>
+      <input type="search" placeholder="Search tweets">
+    </label>
+    </div>
+    <section class="common-box">
+        <header class="common-box-header u-flex">
+          <h2 class="section-title">Trends for you</h2>  
+          <button class="icon-button u-margin-start-auto"><span class="icon icon-settings">⚙️</span></button>
+        </header>
+        <ul class="common-list">
+          <li class="common-list-item">
+            <a class="u-block u-common-padding">
+              <div class="trend-category">Web Technology</div>
+              <h3 class="common-title">CSS</h3>
+              <p>105K Tweets</p>
+            </a>
+            <button class="icon-button u-flex u-margin-start-auto"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+          </li>
+          <li class="common-list-item">
+             <a class="u-block u-common-padding">
+              <div class="trend-category">Web Technology</div>
+              <h3 class="common-title">SVG</h3>
+              <p>21K Tweets</p>
+            </a>
+            <button class="icon-button u-flex u-margin-start-auto"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+          </li>
+          <li class="common-list-item">
+            <a class="u-block u-common-padding">
+              <div class="trend-category">Web Technology</div>
+              <h3 class="common-title">Responsive Design</h3>
+              <p>251K Tweets</p>
+            </a>
+            <button class="icon-button u-flex u-margin-start-auto"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+          </li>
+        </ul>
+        <a class="common-more" href="/">Show more</a>
+      </section>
+    <section class="common-box">
+      <header class="common-box-header u-flex">
+        <h2 class="section-title">Who to follow</h2>  
+      </header>
+      <ul class="common-list">
+        <li class="common-list-item u-flex">
+          <a class="user-item u-common-padding" href="https://twitter.com/css" target="_blank">
+            <img class="profile-image" src="https://pbs.twimg.com/profile_images/1080202898372362240/akqRGyta_200x200.jpg" alt="CSS Tricks">
+            <h3 class="common-title">CSS-Tricks</h3>
+            <span class="usercode">@css</span>
+            <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+          </a>
+        </li>
+        <li class="common-list-item u-flex">
+          <a class="user-item u-common-padding" href="https://twitter.com/smashingmag" target="_blank">
+            <img class="profile-image" src="https://pbs.twimg.com/profile_images/1242374315703664641/qIJwxb3i_400x400.jpg" alt="Smashing Magazine">
+            <h3 class="common-title">Smashing Magazine</h3>
+            <span class="usercode">@smashingmag</span>
+            <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+          </a>
+        </li>
+        <li class="common-list-item u-flex">
+          <a class="user-item u-common-padding" href="https://twitter.com/SidebarIO" target="_blank">
+            <img class="profile-image" src="https://pbs.twimg.com/profile_images/3304895288/5c6b1f60dd5f179f7b2da2cea0ad787a_bigger.png" alt="CSSbar">
+            <h3 class="common-title">Sidebar</h3>
+            <span class="usercode">@SidebarIO</span>
+            <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+          </a>
+        </li>
+        <li class="common-list-item u-flex">
+          <a class="user-item u-common-padding" href="https://twitter.com/CSSWeekly" target="_blank">
+            <img class="profile-image" src="https://bit.ly/2SGZ46r" alt="CSS Weekly">
+            <h3 class="common-title">CSS Weekly</h3>
+            <span class="usercode">@CSSWeekly</span>
+            <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+          </a>
+        </li>
+      </ul>
+      <a class="common-more" href="/">Show more</a>
+    </section>
+  </aside>
+</div>
+  
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script  src="https://cdpn.io/cp/internal/boomboom/pen.js?key=pen.js-470ae246-465a-dac1-68a6-8a622ceac03b" crossorigin></script>
+</body>
+
+</html>

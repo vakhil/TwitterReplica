@@ -1,7 +1,6 @@
 package com.facebook.tutorial.replicate.FaceBookReplica.services;
 
-import com.facebook.tutorial.replicate.FaceBookReplica.model.Posts;
-import com.facebook.tutorial.replicate.FaceBookReplica.model.user;
+import com.facebook.tutorial.replicate.FaceBookReplica.model.*;
 import com.facebook.tutorial.replicate.FaceBookReplica.repository.PostRepository;
 import com.facebook.tutorial.replicate.FaceBookReplica.repository.UserRepository;
 import com.mongodb.BasicDBObject;
@@ -14,11 +13,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TimelineRendererService {
@@ -32,7 +30,11 @@ public class TimelineRendererService {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public List getPostsFromFriendsTimeline(Principal principal){
+    public List getPostsFromFriendsTimeline(Principal principal, Model model){
+        //Name and posts Mapping
+        List<ProfilePictureMap> namePostMap = new ArrayList<>();
+        Map<String,String> nameProfilePictureMap = new HashMap<>();
+
         //Get the list of all friends
         String currentPrincipalName = principal.getName();
         Optional<user> userDetails = userRepository.findByUserName(currentPrincipalName);
@@ -41,31 +43,46 @@ public class TimelineRendererService {
             List<String> friends = userDetails.get().getFriends();
 
 
+
             Query query = new Query();
             query.addCriteria(Criteria.where("postCreator").in(friends));
 
             List<Posts> timelineRelevantPosts = mongoTemplate.find(query, Posts.class);
-
+            for (Posts posts : timelineRelevantPosts){
+                namePostMap.add(new ProfilePictureMap(posts.getPostCreator(),posts));
+            }
+            //Retireve profile Picture of each friend !!!
+            for (Posts post : timelineRelevantPosts){
+                Optional<user> friendProfile = userRepository.findByUserName(post.getPostCreator());
+                if (friendProfile.isPresent()){
+                    nameProfilePictureMap.put(friendProfile.get().getUserName(),friendProfile.get().getProfilePicture());
+                }
+                for (Comment comment : post.getComments()){
+                    Optional<user> commentorProfile = userRepository.findByUserName(comment.getCommentor());
+                    if(commentorProfile.isPresent()){
+                        nameProfilePictureMap.put(commentorProfile.get().getUserName(),commentorProfile.get().getProfilePicture());
+                    }
+                }
+            }
+            model.addAttribute("presentProfileDP",userDetails.get().getProfilePicture());
+            model.addAttribute("namePostMap",namePostMap);
+            model.addAttribute("nameProfilePictureMap",nameProfilePictureMap);
             return timelineRelevantPosts;
 
-//            for (String friend: friends){
-//                //Get all posts when postCommentor in {X,Y,Z} and order by timestamp !!!
-//                //Get the posts of each friend !!!
-//                Optional<List<Posts>> postsByFriend =  postRepository.findByPostCreator(friend);
-//                if(postsByFriend.isPresent()){
-//                    //Pass this to UI
-//                }else {
-//                    //throw a proper Exception !!
-//                    continue;
-//                }
-//
-//                //Pass the post information to UI
-//            }
         } else {
             throw new UsernameNotFoundException("User does not exist !!!");
         }
 
 
 
+    }
+
+    public void persistTweetInSystenm(Tweet tweet,Principal principal){
+        Posts posts = new Posts();
+        posts.setType(tweet.getType());
+        posts.setMedia(tweet.getContent());
+        posts.setPostCreator(principal.getName());
+        postRepository.save(posts);
+        return;
     }
 }

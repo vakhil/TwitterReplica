@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Twitter Reverse Engineering</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link th:rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
+    <script  th:href="@{/js/script.js}"    ></script>
+
+    <script>
+    var nameProfilePictureMap =  "[[${nameProfilePictureMap}]]";
+    console.log(nameProfilePictureMap);
+
+
+function postTweetAndPersist(){
+
+
+    const params = {
+            content: document.querySelector('#tweetBox').innerText,
+            type: "Text"
+        }
+
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('POST', 'http://localhost:8080/post/tweet');
+        httpRequest.setRequestHeader('Content-type', 'application/json');
+        httpRequest.onreadystatechange = function () {
+            if (this.status == 200) {
+               document.querySelector('#tweetBox').innerText = "";
+              console.log("The tweet has been posted succesfully !!");
+            }
+        };
+        httpRequest.send(JSON.stringify(params));
+    }
+
+   function expandCommentSection(e) {
+        var commentsList = e.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("feed-item");
+        for(var i =0 ; i < commentsList.length; i++){
+            var commentElement = commentsList[i];
+
+               if (commentElement.style.display === "none") {
+                     commentElement.style.display = "block";
+                 } else {
+                    commentElement.style.display = "none";
+                 }
+        }
+}
+
+
+    </script>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="main-grid">
+    <nav class="main-nav">
+        <a class="logo js-home" href="javascript: void(0)"><span class="icon">🦉</span></a>
+        <ul class="main-nav-list">
+            <li class="main-nav-item"><a class="menu-item is-selected js-home" href="javascript: void(0)"><span class="icon">🏠</span><span class="text">Home</span></a></li>
+            <li class="main-nav-item is-only-break1"><button class="menu-item"><span class="icon">🔎</span><span class="text">Search</span></button></li>
+            <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon icon-explore">#</span><span class="text">Explore</span></a></li>
+            <li class="main-nav-item"><a class="menu-item"><span class="icon">🔔</span><span class="text">Notifications</span></a></li>
+            <li class="main-nav-item"><a class="menu-item"><span class="icon">✉️</span><span class="text">Messages</span></a></li>
+            <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon">🔖</span><span class="text">Bookmarks</span></a></li>
+            <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon">📄</span><span class="text">Lists</span></a></li>
+            <li class="main-nav-item is-hide-break1">
+                <a class="menu-item u-animation-click js-profile" href="javascript: void(0)">
+                    <span class="icon"><img class="profile-image" src="https://bit.ly/3b6qNEw" alt="Elad Shechter"></span>
+                    <span class="text">Profile</span>
+                </a>
+            </li>
+            <li class="main-nav-item is-hide-break1"><a class="menu-item"><span class="icon icon-more"></span><span class="text">More</span></a></li>
+            <li class="main-nav-item tweet-button"><button class="common-button is-full-width is-height-big js-tweet"><span class="icon icon-tweet">✒️</span><span class="text">Tweet</span></button></li>
+        </ul>
+    </nav>
+    <main class="main-content">
+        <header class="main-header">
+            <button class="icon-button icon-back js-home u-hide"><span class="icon">←</span></button>
+            <div class="main-header-content">
+                <h1 class="section-title js-title">Home</h1>
+            </div>
+            <button class="icon-button u-margin-start-auto" aria-label="Top Tweets on"><span class="icon">✨</span></button>
+        </header>
+        <section class="profile-box u-hide">
+            <img src="https://pbs.twimg.com/profile_banners/221782882/1585581667/1500x500" alt="">
+            <div class="profile-box-content u-common-padding">
+                <img class="profile-image" src="https://pbs.twimg.com/profile_images/595840995675217920/8uRl8-5A_200x200.jpg" alt="Elad Shechter">
+                <h2 class="section-title">Elad Shechter</h2>
+                <div class="usercode u-margin-bottom">@eladsc</div>
+                <p class="u-margin-bottom">CSS/HTML Expert, Speaker, Writer</p>
+                <ul class="profile-box-info u-margin-bottom">
+                    <li><a class="common-link" href="https://eladsc.com/" target="_blank"><span class="icon">🔗</span><span class="text">eladsc.com</span></a></li>
+                    <li><span class="icon">📅</span><span class="text">Joined December 2010</span></li>
+                </ul>
+                <ul class="profile-box-info is-list-counters">
+                    <li><span class="common-title">218</span> <span class="text">Following</span></li>
+                    <li><span class="common-title">1,481</span> <span class="text">Followers</span></li>
+                </ul>
+            </div>
+            <nav class="common-nav">
+                <ul class="common-nav-list">
+                    <li class="common-nav-item"><a class="is-selected">Tweets</a></li>
+                    <li class="common-nav-item"><a>Tweets & replies</a></li>
+                    <li class="common-nav-item"><a>Media</a></li>
+                    <li class="common-nav-item"><a>Likes</a></li>
+                </ul>
+            </nav>
+        </section>
+        <section class="message-box">
+            <div class="profile-image-wrap">
+                <img class="profile-image" src="https://bit.ly/3b6qNEw" th:src="${presentProfileDP}">
+            </div>
+            <div id="tweetBox" class="message-box-content" contenteditable="true" placeholder="What's happening?"></div>
+            <nav class="message-box-nav u-flex">
+                <ul class="u-flex">
+                    <li><button class="icon-button"><span class="icon">🌇</span></button></li>
+                    <li><button class="icon-button"><span class="icon icon-gif"></span></button></li>
+                    <li><button class="icon-button"><span class="icon icon-poll">📊</span></button></li>
+                    <li><button class="icon-button"><span class="icon">🙂</span></button></li>
+                </ul>
+                <button onclick="postTweetAndPersist()" class="common-button u-margin-start-auto"><span class="text">Tweet</span></button>
+            </nav>
+        </section>
+        <section class="feed">
+            <ul class="feed-list">
+
+                <li th:each="post : ${namePostMap}">
+                    <article class="tweet-item">
+                        <img class="profile-image" th:src="${nameProfilePictureMap.get(post.name)}" alt="codetalks.tv">
+                        <header class="tweet-item-info u-flex">
+                            <a class="tweet-item-info-user" href="https://twitter.com/eladsc" target="_blank">
+                                <span class="common-title" th:text="${post.name}"></span>
+                            </a>
+                            <time datetime="">Jun 10</time>
+                            <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+                        </header>
+                        <div class="common-content">
+                            <p th:text="${post.posts.media}">
+
+                            </p>
+                        </div>
+                        <ul class="message-options u-flex u-space-between">
+                            <li class="message-options-item">
+                                <label>
+                                    <button onclick="expandCommentSection(this)" class="icon-button"><span class="icon">💬</span></button>
+                                    <span class="text"></span>
+                                </label>
+                            </li>
+                            <li class="message-options-item">
+                                <label>
+                                    <button class="icon-button"><span class="icon">🔃</span></button>
+                                    <span class="text">0</span>
+                                </label>
+                            </li>
+                            <li class="message-options-item">
+                                <label>
+                                    <button class="icon-button"><span class="icon">❤</span></button>
+                                    <span class="text" th:text="${post.posts.likes}"></span>
+                                </label>
+                            </li>
+                            <li class="message-options-item">
+                                <label>
+                                    <button class="icon-button"><span class="icon">📤</span></button>
+                                    <span class="text"></span>
+                                </label>
+                            </li>
+                        </ul>
+                    </article>
+
+<!--                    <div th:each="com : ${post.posts.comments}">-->
+<!--                        <p th:text="${com.comment}"></p>-->
+<!--                    </div>-->
+                    <ul class="feed-list">
+                        <li th:each="comment : ${post.posts.comments}" id="commentSection" style="display: none " class="feed-item">
+                            <article class="tweet-item">
+                                <img class="profile-image" th:src="${nameProfilePictureMap.get(comment.commentor)}" >
+                                <header class="tweet-item-info u-flex">
+                                    <a class="tweet-item-info-user" href="https://twitter.com/eladsc" target="_blank">
+                                        <span class="common-title" th:text="${comment.commentor}"></span>
+                                    </a>
+                                    <time datetime="">Jun 10</time>
+                                    <button class="icon-button u-flex u-margin-start-auto" style="--icon-button-size:27px;"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+                                </header>
+                                <div class="common-content">
+                                    <p th:text="${comment.comment}">
+
+                                    </p>
+                                </div>
+                                <ul class="message-options u-flex u-space-between">
+
+
+                                    <li class="message-options-item">
+                                        <label>
+                                            <button class="icon-button"><span class="icon">❤</span></button>
+                                            <span class="text" th:text="${comment.likes}"></span>
+                                        </label>
+                                    </li>
+
+                                </ul>
+                            </article>
+                        </li>
+                    </ul>
+
+
+
+
+
+
+
+
+
+                </li>
+
+
+
+
+
+
+
+
+
+
+            </ul>
+        </section>
+    </main>
+    <aside class="main-side">
+        <div class="main-side-searchbox">
+            <label class="search-box">
+                <span class="icon">🔎</span>
+                <input type="search" placeholder="Search tweets">
+            </label>
+        </div>
+        <section class="common-box">
+            <header class="common-box-header u-flex">
+                <h2 class="section-title">Trends for you</h2>
+                <button class="icon-button u-margin-start-auto"><span class="icon icon-settings">⚙️</span></button>
+            </header>
+            <ul class="common-list">
+                <li class="common-list-item">
+                    <a class="u-block u-common-padding">
+                        <div class="trend-category">Web Technology</div>
+                        <h3 class="common-title">CSS</h3>
+                        <p>105K Tweets</p>
+                    </a>
+                    <button class="icon-button u-flex u-margin-start-auto"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+                </li>
+                <li class="common-list-item">
+                    <a class="u-block u-common-padding">
+                        <div class="trend-category">Web Technology</div>
+                        <h3 class="common-title">SVG</h3>
+                        <p>21K Tweets</p>
+                    </a>
+                    <button class="icon-button u-flex u-margin-start-auto"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+                </li>
+                <li class="common-list-item">
+                    <a class="u-block u-common-padding">
+                        <div class="trend-category">Web Technology</div>
+                        <h3 class="common-title">Responsive Design</h3>
+                        <p>251K Tweets</p>
+                    </a>
+                    <button class="icon-button u-flex u-margin-start-auto"><span class="icon icon-arrow-down u-margin-auto"></span></button>
+                </li>
+            </ul>
+            <a class="common-more" href="/">Show more</a>
+        </section>
+        <section class="common-box">
+            <header class="common-box-header u-flex">
+                <h2 class="section-title">Who to follow</h2>
+            </header>
+            <ul class="common-list">
+                <li class="common-list-item u-flex">
+                    <a class="user-item u-common-padding" href="https://twitter.com/css" target="_blank">
+                        <img class="profile-image" src="https://pbs.twimg.com/profile_images/1080202898372362240/akqRGyta_200x200.jpg" alt="CSS Tricks">
+                        <h3 class="common-title">CSS-Tricks</h3>
+                        <span class="usercode">@css</span>
+                        <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+                    </a>
+                </li>
+                <li class="common-list-item u-flex">
+                    <a class="user-item u-common-padding" href="https://twitter.com/smashingmag" target="_blank">
+                        <img class="profile-image" src="https://pbs.twimg.com/profile_images/1242374315703664641/qIJwxb3i_400x400.jpg" alt="Smashing Magazine">
+                        <h3 class="common-title">Smashing Magazine</h3>
+                        <span class="usercode">@smashingmag</span>
+                        <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+                    </a>
+                </li>
+                <li class="common-list-item u-flex">
+                    <a class="user-item u-common-padding" href="https://twitter.com/SidebarIO" target="_blank">
+                        <img class="profile-image" src="https://pbs.twimg.com/profile_images/3304895288/5c6b1f60dd5f179f7b2da2cea0ad787a_bigger.png" alt="CSSbar">
+                        <h3 class="common-title">Sidebar</h3>
+                        <span class="usercode">@SidebarIO</span>
+                        <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+                    </a>
+                </li>
+                <li class="common-list-item u-flex">
+                    <a class="user-item u-common-padding" href="https://twitter.com/CSSWeekly" target="_blank">
+                        <img class="profile-image" src="https://bit.ly/2SGZ46r" alt="CSS Weekly">
+                        <h3 class="common-title">CSS Weekly</h3>
+                        <span class="usercode">@CSSWeekly</span>
+                        <div class="common-button is-invert" tabindex="0" role="button"><span class="text">Follow</span></div>
+                    </a>
+                </li>
+            </ul>
+            <a class="common-more" href="/">Show more</a>
+        </section>
+    </aside>
+</div>
+<!-- partial -->
+
+</body>
+</html>
