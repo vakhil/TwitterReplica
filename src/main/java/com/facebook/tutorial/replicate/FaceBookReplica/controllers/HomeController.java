@@ -22,6 +22,7 @@ public class HomeController {
         List<Posts> newsFeedPosts =  timelineRendererService.getPostsFromFriendsTimeline(principal,model);
         model.addAttribute("timelinePosts",newsFeedPosts);
         return "index";
+
     }
 
 
