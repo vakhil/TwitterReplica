@@ -7,32 +7,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link th:rel="stylesheet" th:href="@{/css/style.css}" type="text/css">
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js'></script>
-    <script  th:href="@{/js/script.js}"    ></script>
+    <script  th:src="@{/js/script.js}"    ></script>
+    <script  th:src="@{/js/tweetModify.js}"    ></script>
 
     <script>
     var nameProfilePictureMap =  "[[${nameProfilePictureMap}]]";
+    var accountOfPostCreatorName =  "[[${postCreator}]]";
+    var accountOfPostCreatorDP = "[[${presentProfileDP}]]";
+
     console.log(nameProfilePictureMap);
 
 
-function postTweetAndPersist(){
 
-
-    const params = {
-            content: document.querySelector('#tweetBox').innerText,
-            type: "Text"
-        }
-
-        var httpRequest = new XMLHttpRequest();
-        httpRequest.open('POST', 'http://localhost:8080/post/tweet');
-        httpRequest.setRequestHeader('Content-type', 'application/json');
-        httpRequest.onreadystatechange = function () {
-            if (this.status == 200) {
-               document.querySelector('#tweetBox').innerText = "";
-              console.log("The tweet has been posted succesfully !!");
-            }
-        };
-        httpRequest.send(JSON.stringify(params));
-    }
 
    function expandCommentSection(e) {
         var commentsList = e.parentElement.parentElement.parentElement.parentElement.parentElement.getElementsByClassName("feed-item");
@@ -123,7 +109,7 @@ function postTweetAndPersist(){
             </nav>
         </section>
         <section class="feed">
-            <ul class="feed-list">
+            <ul class="feed-list" id="twitterFeed">
 
                 <li th:each="post : ${namePostMap}">
                     <article class="tweet-item">

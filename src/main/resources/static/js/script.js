@@ -25,6 +25,27 @@ $(document).ready(function() {
 });
 
 
+function postTweetAndPersist(){
+    alert("KKKK");
 
+    const params = {
+            content: document.querySelector('#tweetBox').innerText,
+            type: "Text"
+        }
 
+        var tweetData = params.content;
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('POST', 'http://localhost:8080/post/tweet');
+        httpRequest.setRequestHeader('Content-type', 'application/json');
+        httpRequest.onreadystatechange = function () {
+            if (this.status == 200 && this.readyState === 4 ) {
+               document.querySelector('#tweetBox').innerText = "";
+                var modifiedTweet = modify(tweetData, accountOfPostCreatorName, accountOfPostCreatorDP);
+                document.querySelector('#twitterFeed').insertAdjacentHTML('afterbegin', modifiedTweet);
 
+              console.log("The tweet has been posted succesfully !!");
+            }
+        };
+
+        httpRequest.send(JSON.stringify(params));
+    }

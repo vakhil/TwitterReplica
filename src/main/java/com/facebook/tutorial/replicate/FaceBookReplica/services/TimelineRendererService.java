@@ -67,6 +67,8 @@ public class TimelineRendererService {
             model.addAttribute("presentProfileDP",userDetails.get().getProfilePicture());
             model.addAttribute("namePostMap",namePostMap);
             model.addAttribute("nameProfilePictureMap",nameProfilePictureMap);
+            //Getting the name of the tweeter and storing it !!!
+            model.addAttribute("postCreator",currentPrincipalName);
             return timelineRelevantPosts;
 
         } else {
