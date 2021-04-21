@@ -84,22 +84,55 @@ x[7].parentElement.parentElement.parentElement.parentElement.parentElement.getEl
 
 
 
-    function postTweetAndPersist(){
-    
-    var httpRequest = new XMLHttpRequest();
+function postTweetAndPersist(){
+    alert("KKKK");
 
+    const params = {
+            content: document.querySelector('#tweetBox').innerText,
+            type: "Text"
+        }
 
+        var tweetData = params.content;
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('POST', 'http://localhost:8080/post/tweet');
+        httpRequest.setRequestHeader('Content-type', 'application/json');
         httpRequest.onreadystatechange = function () {
-            if (this.status == 200) {
+            if (this.status == 200 && this.readyState === 4 &) {
+               document.querySelector('#tweetBox').innerText = "";
+                var modifiedTweet = modify(tweetData, accountOfPostCreatorName, accountOfPostCreatorDP);
+                document.querySelector('#twitterFeed').insertAdjacentHTML('afterbegin', modifiedTweet);
+
               console.log("The tweet has been posted succesfully !!");
             }
         };
 
-
-        httpRequest.open('GET', 'https://heroku-chatapp-spring.herokuapp.com/profileImage?receive='+userNames[1]);
-        httpRequest.send();
-
+        httpRequest.send(JSON.stringify(params));
+    }
 
 
 
+
+
+function postTweetAndPersist(){
+
+
+    const params = {
+            content: document.querySelector('#tweetBox').innerText,
+            type: "Text"
+        }
+
+        var tweetData = params.content;
+        var httpRequest = new XMLHttpRequest();
+        httpRequest.open('POST', 'http://localhost:8080/post/tweet');
+        httpRequest.setRequestHeader('Content-type', 'application/json');
+        httpRequest.onreadystatechange = function () {
+            if (this.status == 200) {
+               document.querySelector('#tweetBox').innerText = "";
+                var modifiedTweet = modify(tweetData, accountOfPostCreatorName, accountOfPostCreatorDP);
+                document.querySelector('#twitterFeed').insertAdjacentHTML('afterbegin', modifiedTweet);
+
+              console.log("The tweet has been posted succesfully !!");
+            }
+        };
+        httpRequest.send(JSON.stringify(params));
     }
